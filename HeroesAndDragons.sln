@@ -4,6 +4,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroesAndDragons", "HeroesAndDragons\HeroesAndDragons.csproj", "{6549DBAC-0201-4A5F-936E-D01E7414593C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F7B40309-A5CC-4079-8DEC-DB831BE11662} = {F7B40309-A5CC-4079-8DEC-DB831BE11662}
+		{03999D43-D27F-46EF-9EDF-24018F88933A} = {03999D43-D27F-46EF-9EDF-24018F88933A}
+		{A82F88F6-E42E-43C9-B48C-9D1721B41BEA} = {A82F88F6-E42E-43C9-B48C-9D1721B41BEA}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroesAndDragons.Core", "HeroesAndDragons.Core\HeroesAndDragons.Core.csproj", "{A82F88F6-E42E-43C9-B48C-9D1721B41BEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroesAndDragons.BL", "HeroesAndDragons.BL\HeroesAndDragons.BL.csproj", "{03999D43-D27F-46EF-9EDF-24018F88933A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F7B40309-A5CC-4079-8DEC-DB831BE11662} = {F7B40309-A5CC-4079-8DEC-DB831BE11662}
+		{A82F88F6-E42E-43C9-B48C-9D1721B41BEA} = {A82F88F6-E42E-43C9-B48C-9D1721B41BEA}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroesAndDragons.DL", "HeroesAndDragons.DL\HeroesAndDragons.DL.csproj", "{F7B40309-A5CC-4079-8DEC-DB831BE11662}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A82F88F6-E42E-43C9-B48C-9D1721B41BEA} = {A82F88F6-E42E-43C9-B48C-9D1721B41BEA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +33,18 @@ Global
 		{6549DBAC-0201-4A5F-936E-D01E7414593C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6549DBAC-0201-4A5F-936E-D01E7414593C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6549DBAC-0201-4A5F-936E-D01E7414593C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A82F88F6-E42E-43C9-B48C-9D1721B41BEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A82F88F6-E42E-43C9-B48C-9D1721B41BEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A82F88F6-E42E-43C9-B48C-9D1721B41BEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A82F88F6-E42E-43C9-B48C-9D1721B41BEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03999D43-D27F-46EF-9EDF-24018F88933A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03999D43-D27F-46EF-9EDF-24018F88933A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03999D43-D27F-46EF-9EDF-24018F88933A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03999D43-D27F-46EF-9EDF-24018F88933A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7B40309-A5CC-4079-8DEC-DB831BE11662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B40309-A5CC-4079-8DEC-DB831BE11662}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B40309-A5CC-4079-8DEC-DB831BE11662}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B40309-A5CC-4079-8DEC-DB831BE11662}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

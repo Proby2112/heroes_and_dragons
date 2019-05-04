@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>AddApiModel</Title>
+      <Shortcut>amod</Shortcut>
+    </Header>
+    <Snippet>
+      <Imports>
+        <Import>
+          <Namespace>HeroesAndDragons.Core.ApiModels.Base</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Newtonsoft.Json</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>name</ID>
+          <Default>Name</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Delimiter="$">
+        <![CDATA[
+        public abstract class $name$BaseApiModel : BaseModel<string>
+        {
+          [JsonProperty("name")]
+        }
+        public class $name$GetFullApiModel : $name$BaseApiModel
+        {
+        }
+        public class $name$GetMinApiModel : $name$BaseApiModel
+        {
+        }
+        public class $name$AddApiModel : $name$BaseApiModel
+        {
+        }
+        ]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
