@@ -12,11 +12,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HeroesAndDragons.BL\HeroesAndDragons.BL.csproj" />
     <ProjectReference Include="..\HeroesAndDragons.DL\HeroesAndDragons.DL.csproj" />
   </ItemGroup>
 

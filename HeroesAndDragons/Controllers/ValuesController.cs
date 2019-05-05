@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HeroesAndDragons.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/value")]
     [ApiController]
     public class ValuesController : ControllerBase
     {

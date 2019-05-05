@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using HeroesAndDragons.Core.Entities;
+using HeroesAndDragons.Core.Interfaces.Repositories;
+using HeroesAndDragons.Core.Interfaces.Services;
 using HeroesAndDragons.DL;
+using HeroesAndDragons.DL.Repositories.Base;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -13,7 +17,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.Swagger;
+using HeroesAndDragons.BL.Services;
+using HeroesAndDragons.DL.Repositories;
+using HeroesAndDragons.Core.Interfaces;
+using HeroesAndDragons.Mapper;
 
 namespace HeroesAndDragons
 {
@@ -70,24 +77,31 @@ namespace HeroesAndDragons
             //        };
             //    });
 
-            // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
-            });
+            // Automapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-
-            #region Application services.
+            #region Dependency registration.
 
             // Repositories
-            //services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+            services.AddTransient<IDragonRepository, DragonRepository>();
+            services.AddTransient<IHeroRepository, HeroRepository>();
+            services.AddTransient<IHitRepository, HitRepository>();
+
+            // Services
+            services.AddTransient<IDragonService, DragonService>();
+            services.AddTransient<IHeroService, HeroService>();
+            services.AddTransient<IHitService, HitService>();
+
 
             // Other services
+            services.AddSingleton<IDataAdapter, DataAdapter>();
             //services.AddTransient(typeof(JwtTokenService));
 
             #endregion
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,16 +111,6 @@ namespace HeroesAndDragons
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
 
             // Enabling middleware to use Authentication services.
             app.UseAuthentication();

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>AddService</Title>
+      <Shortcut>aserve</Shortcut>
+    </Header>
+    <Snippet>
+      <Imports>
+        <Import>
+          <Namespace>HeroesAndDragons.Core.ApiModels</Namespace>
+        </Import>
+        <Import>
+          <Namespace>HeroesAndDragons.Core.Entities</Namespace>
+        </Import>
+        <Import>
+          <Namespace>HeroesAndDragons.BL.Services.Base</Namespace>
+        </Import>
+        <Import>
+          <Namespace>HeroesAndDragons.Core.Interfaces</Namespace>
+        </Import>
+        <Import>
+          <Namespace>HeroesAndDragons.Core.Interfaces.Repositories</Namespace>
+        </Import>
+        <Import>
+          <Namespace>HeroesAndDragons.Core.Interfaces.Services</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>name</ID>
+          <Default>Name</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Delimiter="$">
+        <![CDATA[
+        public class $name$Service : BaseService<$name$AddApiModel, $name$GetFullApiModel, $name$Entity, string>, I$name$Service
+        {
+          public $name$Service(I$name$Repository repository, IDataAdapter dataAdapter) : base(repository, dataAdapter) { }
+        }
+        ]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

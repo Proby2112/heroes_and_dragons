@@ -23,8 +23,6 @@ namespace HeroesAndDragons.DL.Repositories.Base
 
         public virtual Task AddAsync(TEntity item)
         {
-            //todo change time
-            //item.ChangeTimeToUtc();
 
             item.SetId();
 
@@ -56,45 +54,17 @@ namespace HeroesAndDragons.DL.Repositories.Base
             return Task.FromResult(result);
         }
 
-        public virtual Task<IEnumerable<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> search)
+        public virtual Task<IQueryable<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> search)
         {
-            var result = _repository.Table.Where(search).ToList();
-            return Task.FromResult<IEnumerable<TEntity>>(result);
+            var result = _repository.Table.Where(search);
+            return Task.FromResult(result);
         }
 
         public virtual Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> search)
         {
             var result = _repository.Table.Where(search).FirstOrDefault();
-            return Task.FromResult<TEntity>(result);
+            return Task.FromResult(result);
         }
-
-        //public virtual Task AddOrUpdateAsync(TEntity entity)
-        //{
-        //    var first = _repository.Table.Where(x => x.Id.Equals(entity.Id)).FirstOrDefault();
-
-        //    //todo change time
-        //    //entity.ChangeTimeToUtc();
-
-        //    if (first == null)
-        //    {
-        //        entity.SetId();
-        //        _repository.Insert(entity);
-        //    }
-        //    else
-        //    {
-        //        var uptime = first.Created;
-        //        if (first != entity)
-        //        {
-        //            first.Copy(entity);
-        //        }
-        //        first.Created = uptime;
-        //        first.Updated = DateTime.UtcNow;
-
-        //        _repository.SaveChanges();
-        //    }
-
-        //    return Task.FromResult("Ok");
-        //}
 
         public virtual Task<TEntity> GetAsync(TKey id)
         {
@@ -104,7 +74,7 @@ namespace HeroesAndDragons.DL.Repositories.Base
                 throw new ArgumentException($"Model id: {id} is not found");
             }
 
-            return Task.FromResult<TEntity>(res);
+            return Task.FromResult(res);
         }
 
         public virtual Task RemoveAsync(TKey id)
@@ -119,32 +89,101 @@ namespace HeroesAndDragons.DL.Repositories.Base
             return Task.FromResult("Ok");
         }
 
-        //public virtual Task PutAsync(TKey id, TEntity item)
-        //{
-        //    var res = _repository.Table.FirstOrDefault(x => x.Id.Equals(id));
-        //    if (res == null)
-        //    {
-        //        throw new ArgumentException($"Model id: {id} is not found");
-        //    }
-
-        //    //todo change time
-        //    //item.ChangeTimeToUtc();
-
-        //    if (res != item)
-        //    {
-        //        res.Copy(item);
-        //    }
-        //    res.Updated = DateTime.UtcNow;
-        //    _repository.SaveChanges();
-
-        //    return Task.FromResult("Ok");
-        //}
-
-        public Task<int> SqlQuery(string sql)
+        public virtual Task PutAsync(TKey id, TEntity item)
         {
-            var result = _repository.SqlQuery(sql);
-            return Task.FromResult(result);
+            var res = _repository.Table.FirstOrDefault(x => x.Id.Equals(id));
+            if (res == null)
+            {
+                throw new ArgumentException($"Model id: {id} is not found");
+            }
 
+            if (res != item)
+            {
+                res.Copy(item);
+            }
+            res.Updated = DateTime.UtcNow;
+            _repository.SaveChanges();
+
+            return Task.FromResult("Ok");
+        }
+    }
+
+    static class BaseRepositoryExtension
+    {
+        public static T Copy<T>(this T fromObj) where T : class, new()
+        {
+            if (fromObj == null)
+            {
+                return null;
+            }
+
+            var obj = new T();
+
+            var fields1 = obj.GetType().GetProperties().Where(p => !p.GetMethod.IsVirtual).ToArray();
+            var fields2 = fromObj.GetType().GetProperties().Where(p => !p.GetMethod.IsVirtual).ToArray();
+
+            for (int i = 0; i < fields2.Length; i++)
+            {
+                var value = fields2[i].GetValue(fromObj);
+
+                if (fields2[i].GetMethod.ReturnType.Name.Contains("ICollection"))
+                {
+                    continue;
+                }
+
+                var first = fields1.FirstOrDefault(x => x.Name == fields2[i].Name);
+                var setMethod = first.GetSetMethod(false);
+
+                if (setMethod != null)
+                {
+                    //setMethod.Invoke(obj, new[] { value });
+                    first?.SetValue(obj, value);
+                }
+            }
+
+            return obj;
+        }
+
+        public static bool Copy<T>(this T obj, T fromObj)
+        {
+            if (obj == null || fromObj == null)
+            {
+                return false;
+            }
+
+            bool isChanged = false;
+
+            var fields1 = obj.GetType().GetProperties().Where(p => !p.GetMethod.IsVirtual).ToArray();
+            var fields2 = fromObj.GetType().GetProperties().Where(p => !p.GetMethod.IsVirtual).ToArray();
+
+            for (int i = 0; i < fields2.Length; i++)
+            {
+                var originValue = fields2[i].GetValue(obj);
+                var value = fields2[i].GetValue(fromObj);
+
+                if (fields2[i].GetMethod.ReturnType.Name.Contains("ICollection")
+                    || fields2[i].Name == "Created")
+                {
+                    continue;
+                }
+
+                if ((value == null && originValue != null) || (originValue == null && value != null)
+                    || (value != null && originValue != null && !value.Equals(originValue)))
+                {
+                    isChanged = true;
+                }
+
+                var first = fields1.FirstOrDefault(x => x.Name == fields2[i].Name);
+                var setMethod = first.GetSetMethod(false);
+
+                if (setMethod != null)
+                {
+                    //setMethod.Invoke(obj, new[] { value });
+                    first?.SetValue(obj, value);
+                }
+            }
+
+            return isChanged;
         }
     }
 }

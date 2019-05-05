@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>CreateMap</Title>
+      <Shortcut>map</Shortcut>
+    </Header>
+    <Snippet>
+      <Imports>
+        <Import>
+          <Namespace>HeroesAndDragons.Core.ApiModels</Namespace>
+        </Import>
+        <Import>
+          <Namespace>HeroesAndDragons.Core.Entities</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>name</ID>
+          <Default>Entity</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Delimiter="$">
+        <![CDATA[
+        // $name$ profile
+        CreateMap<$name$Entity, $name$GetFullApiModel>();
+        CreateMap<$name$Entity, $name$GetMinApiModel>();
+        CreateMap<$name$AddApiModel, $name$Entity>();
+        ]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

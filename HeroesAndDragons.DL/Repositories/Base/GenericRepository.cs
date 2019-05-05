@@ -19,7 +19,7 @@ namespace HeroesAndDragons.DL.Repositories.Base
 
         public GenericRepository(AppDbContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         protected virtual DbSet<TEntity> Entities
@@ -28,7 +28,7 @@ namespace HeroesAndDragons.DL.Repositories.Base
             {
                 if (_entities == null)
                 {
-                    this._entities = _context.Set<TEntity>();
+                    _entities = _context.Set<TEntity>();
                 }
                 return _entities;
             }
@@ -38,7 +38,7 @@ namespace HeroesAndDragons.DL.Repositories.Base
         {
             get
             {
-                return this.Entities;
+                return Entities;
             }
         }
 
@@ -50,15 +50,15 @@ namespace HeroesAndDragons.DL.Repositories.Base
 
         public virtual IEnumerable<TEntity> GelAll()
         {
-            return this.Entities;
+            return Entities;
         }
 
         public virtual bool Insert(IEnumerable<TEntity> entities)
         {
-            entities.ToList().ForEach(entity => this.Entities.Add(entity));
+            entities.ToList().ForEach(entity => Entities.Add(entity));
             try
             {
-                this._context.SaveChanges();
+                _context.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -78,7 +78,7 @@ namespace HeroesAndDragons.DL.Repositories.Base
                 _context.Entry(entity).State = EntityState.Modified;
             });
 
-            this._context.SaveChanges();
+            _context.SaveChanges();
             return true;
         }
 
@@ -91,8 +91,8 @@ namespace HeroesAndDragons.DL.Repositories.Base
         {
             try
             {
-                entities.ToList().ForEach(entity => this.Entities.Remove(entity));
-                this._context.SaveChanges();
+                entities.ToList().ForEach(entity => Entities.Remove(entity));
+                _context.SaveChanges();
                 return true;
             }
             catch (Exception er)
@@ -115,7 +115,7 @@ namespace HeroesAndDragons.DL.Repositories.Base
         {
             try
             {
-                this._context.SaveChanges();
+                _context.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -130,12 +130,6 @@ namespace HeroesAndDragons.DL.Repositories.Base
             where TK : IEquatable<TK>, IComparable<TK>
         {
             _context.Entry(primary).State = state;
-        }
-
-        public int SqlQuery(string sql)
-        {
-            var result = _context.Database.ExecuteSqlCommand(sql);
-            return result;
         }
     }
 }

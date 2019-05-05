@@ -31,6 +31,5 @@ namespace HeroesAndDragons.Core.Interfaces.Repositories
             where TK : IEquatable<TK>, IComparable<TK>;
 
         bool SaveChanges();
-        int SqlQuery(string sql);
     }
 }
