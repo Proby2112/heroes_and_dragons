@@ -20,7 +20,11 @@ using Microsoft.Extensions.Options;
 using HeroesAndDragons.BL.Services;
 using HeroesAndDragons.DL.Repositories;
 using HeroesAndDragons.Core.Interfaces;
-using HeroesAndDragons.Mapper;
+using HeroesAndDragons.Managers;
+using HeroesAndDragons.Core.Interfaces.Managers;
+using HeroesAndDragons.BL.Managers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HeroesAndDragons
 {
@@ -39,6 +43,7 @@ namespace HeroesAndDragons
             // Set connection to database.
             services.AddDbContext<AppDbContext>(options =>
             {
+                options.UseLazyLoadingProxies();
                 options.UseSqlServer(Configuration.GetConnectionString("LocalDbConnection"));
             });
 
@@ -56,26 +61,26 @@ namespace HeroesAndDragons
                 .AddDefaultTokenProviders();
 
             // Add authentication services.
-            //services.AddAuthentication(options =>
-            //{
-            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.RequireHttpsMetadata = false;
-            //        options.SaveToken = true;
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuer = true,
-            //            ValidateAudience = true,
-            //            ValidateLifetime = true,
-            //            ValidateIssuerSigningKey = true,
-            //            ValidIssuer = JwtTokenService.ISSUER,
-            //            ValidAudience = JwtTokenService.AUDIENCE,
-            //            IssuerSigningKey = JwtTokenService.GetSymmetricSecurityKey(),
-            //        };
-            //    });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = JwtTokenManager.ISSUER,
+                        ValidAudience = JwtTokenManager.AUDIENCE,
+                        IssuerSigningKey = JwtTokenManager.GetSymmetricSecurityKey(),
+                    };
+                });
 
             // Automapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -94,9 +99,9 @@ namespace HeroesAndDragons
             services.AddTransient<IHitService, HitService>();
 
 
-            // Other services
+            // Managers
+            services.AddTransient(typeof(JwtTokenManager), typeof(ITokenManager<HeroEntity, string>));
             services.AddSingleton<IDataAdapter, DataAdapter>();
-            //services.AddTransient(typeof(JwtTokenService));
 
             #endregion
 

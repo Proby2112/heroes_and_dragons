@@ -1,14 +1,29 @@
 ﻿using AutoMapper;
 using HeroesAndDragons.Core.ApiModels;
 using HeroesAndDragons.Core.Entities;
+using HeroesAndDragons.Core.Interfaces.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HeroesAndDragons.Mapper
+namespace HeroesAndDragons.Managers
 {
-    public class MappingProfiles : Profile
+    public class DataAdapter : IDataAdapter
+    {
+        readonly IMapper _mapper;
+
+        public DataAdapter(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
+        public To Parse<From, To>(From model) => _mapper.Map<From, To>(model);
+
+        public IEnumerable<To> Parse<From, To>(IEnumerable<From> models) => models.Select(Parse<From, To>).ToList();
+    }
+
+    class MappingProfiles : Profile
     {
         public MappingProfiles()
         {

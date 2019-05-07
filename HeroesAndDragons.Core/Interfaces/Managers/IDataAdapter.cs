@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HeroesAndDragons.Core.Interfaces
+namespace HeroesAndDragons.Core.Interfaces.Managers
 {
     public interface IDataAdapter
     {

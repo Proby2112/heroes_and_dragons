@@ -1,6 +1,7 @@
 ﻿using HeroesAndDragons.Core.Interfaces;
 using HeroesAndDragons.Core.Interfaces.BL;
 using HeroesAndDragons.Core.Interfaces.DL;
+using HeroesAndDragons.Core.Interfaces.Managers;
 using HeroesAndDragons.Core.Interfaces.Repositories;
 using HeroesAndDragons.Core.Interfaces.Services;
 using System;

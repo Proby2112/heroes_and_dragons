@@ -1,7 +1,7 @@
 ﻿using HeroesAndDragons.BL.Services.Base;
 using HeroesAndDragons.Core.ApiModels;
 using HeroesAndDragons.Core.Entities;
-using HeroesAndDragons.Core.Interfaces;
+using HeroesAndDragons.Core.Interfaces.Managers;
 using HeroesAndDragons.Core.Interfaces.Repositories;
 using HeroesAndDragons.Core.Interfaces.Services;
 using System;
