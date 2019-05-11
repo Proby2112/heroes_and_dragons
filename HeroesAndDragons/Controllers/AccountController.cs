@@ -15,21 +15,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace HeroesAndDragons.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("api/account")]
     public class AccountController : DefaultController<HeroAddApiModel, HeroGetFullApiModel, HeroEntity, string>
     {
-        readonly ITokenManager<HeroEntity, string> _tokenManager;
         readonly new IHeroService _service;
 
-        public AccountController(IHeroService service, ITokenManager<HeroEntity, string> tokenManager) : base(service)
+        public AccountController(IHeroService service) : base(service)
         {
             _service = service;
-            _tokenManager = tokenManager;
         }
 
         [HttpPost("sing_in")]
-        public async Task<IActionResult> SingIn([FromBody] AuthenticationApiModel madel)
+        public async Task<IActionResult> SingIn([FromBody] AuthenticationApiModel model)
         {
             try
             {
@@ -43,13 +40,19 @@ namespace HeroesAndDragons.Controllers
         }
 
         [HttpPost("sing_up")]
-        [AllowAnonymous]
         public async Task<IActionResult> SingUp([FromBody] RegistrationApiModel model)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-                return Ok();
+                var entity = await _service.AddForAuthAsync(model);
+                var resultModel = await _service.Authenticate(entity, model.Password);
+
+                return Ok(resultModel);
             }
             catch (Exception ex)
             {

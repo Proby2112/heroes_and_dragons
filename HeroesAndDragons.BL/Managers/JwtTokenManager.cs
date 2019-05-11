@@ -29,19 +29,17 @@ namespace HeroesAndDragons.BL.Managers
             _manager = manager;
         }
 
-        public async Task<string> GetToken(HeroEntity entity, bool remember)
+        public async Task<string> GetToken(HeroEntity entity, bool remember = false)
         {
-            // Get user Claims.
-            IList<Claim> claims = await _manager.GetClaimsAsync(entity);
+            var identity = new ClaimsIdentity(await _manager.GetClaimsAsync(entity));
 
-            // Get current datetime.
             var now = DateTime.UtcNow;
 
             // Generate token.
             var jwt = new JwtSecurityToken(
                     issuer: ISSUER,
                     audience: AUDIENCE,
-                    claims: claims,
+                    claims: identity.Claims,
                     notBefore: SetLifeTime(now, remember),
                     signingCredentials: new SigningCredentials(GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,7 +50,7 @@ namespace HeroesAndDragons
             // Adds and configures the identity system for the specified User and Role types.
             services.AddIdentity<HeroEntity, IdentityRole>(opts =>
             {
-                opts.User.RequireUniqueEmail = true;
+                opts.User.RequireUniqueEmail = false;
                 opts.Password.RequiredLength = 6;
                 opts.Password.RequireNonAlphanumeric = false;
                 opts.Password.RequireLowercase = false;
@@ -100,7 +100,7 @@ namespace HeroesAndDragons
 
 
             // Managers
-            services.AddTransient(typeof(JwtTokenManager), typeof(ITokenManager<HeroEntity, string>));
+            services.AddTransient(typeof(ITokenManager<HeroEntity, string>), typeof(JwtTokenManager));
             services.AddSingleton<IDataAdapter, DataAdapter>();
 
             #endregion

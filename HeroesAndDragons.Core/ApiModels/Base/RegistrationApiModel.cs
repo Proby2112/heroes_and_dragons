@@ -21,6 +21,7 @@ namespace HeroesAndDragons.Core.ApiModels.Base
         public string ConfirmPassword { get; set; }
 
         [Required]
+        [JsonProperty("user")]
         public HeroAddApiModel Hero { get; set; }
     }
 }

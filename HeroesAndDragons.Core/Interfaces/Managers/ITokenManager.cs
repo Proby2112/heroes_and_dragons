@@ -16,7 +16,7 @@ namespace HeroesAndDragons.Core.Interfaces.Managers
         /// <param name="entity"></param>
         /// <param name="remember"></param>
         /// <returns></returns>
-        Task<string> GetToken(TEntity entity, bool remember);
+        Task<string> GetToken(TEntity entity, bool remember = false);
 
         /// <summary>
         /// Refresh existing token
