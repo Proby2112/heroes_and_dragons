@@ -13,7 +13,7 @@ namespace HeroesAndDragons.Controllers
 {
 
     [ApiController]
-    //[Authorize]
+    [Authorize]
     [Route("api/hero")]
     public class HeroController : DefaultController<HeroAddApiModel, HeroGetFullApiModel, HeroEntity, string>
     {

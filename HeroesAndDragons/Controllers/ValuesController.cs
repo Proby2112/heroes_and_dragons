@@ -17,8 +17,7 @@ namespace HeroesAndDragons.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var user = User.Identity;
-            return Ok(user);
+            return Ok();
         }
 
         // GET api/values/5

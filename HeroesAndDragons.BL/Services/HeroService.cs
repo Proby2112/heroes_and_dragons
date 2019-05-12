@@ -1,4 +1,5 @@
-﻿using HeroesAndDragons.BL.Services.Base;
+﻿using HeroesAndDragons.BL.Managers;
+using HeroesAndDragons.BL.Services.Base;
 using HeroesAndDragons.Core;
 using HeroesAndDragons.Core.ApiModels;
 using HeroesAndDragons.Core.ApiModels.Base;
@@ -68,6 +69,11 @@ namespace HeroesAndDragons.BL.Services
 
         private async Task<HeroEntity> CreateEntity(HeroAddApiModel model, string password)
         {
+            // Set random weapon.
+            model.Weapon = model.Weapon.RandInRange(1, 6);
+            // Trim whitespase.
+            model.UserName = model.UserName.Trim();
+
             var entity = _dataAdapter.Parse<HeroAddApiModel, HeroEntity>(model);
             var result = await _userManager.CreateAsync(entity, password);
 

@@ -16,7 +16,7 @@ namespace HeroesAndDragons.Core.Entities
             Updated = Created;
         }
 
-        public int Weapon { get; set; }
+        public int? Weapon { get; set; }
 
         public virtual ICollection<HitEntity> Hits { get; set; }
 
