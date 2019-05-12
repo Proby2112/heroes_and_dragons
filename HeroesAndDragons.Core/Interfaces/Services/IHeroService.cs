@@ -17,6 +17,13 @@ namespace HeroesAndDragons.Core.Interfaces.Services
         /// <param name="model"></param>
         /// <returns></returns>
         Task<HeroEntity> AddForAuthAsync(RegistrationApiModel model);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<HeroEntity> GetByUserName(AuthenticationApiModel model);
     }
 }
 

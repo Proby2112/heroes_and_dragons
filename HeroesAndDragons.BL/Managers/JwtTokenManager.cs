@@ -31,7 +31,7 @@ namespace HeroesAndDragons.BL.Managers
 
         public async Task<string> GetToken(HeroEntity entity, bool remember = false)
         {
-            var identity = new ClaimsIdentity(await _manager.GetClaimsAsync(entity));
+            var claims = await _manager.GetClaimsAsync(entity);
 
             var now = DateTime.UtcNow;
 
@@ -39,8 +39,9 @@ namespace HeroesAndDragons.BL.Managers
             var jwt = new JwtSecurityToken(
                     issuer: ISSUER,
                     audience: AUDIENCE,
-                    claims: identity.Claims,
-                    notBefore: SetLifeTime(now, remember),
+                    claims: claims,
+                    notBefore: DateTime.UtcNow,
+                    expires: SetLifeTime(now, remember),
                     signingCredentials: new SigningCredentials(GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);

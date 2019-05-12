@@ -13,7 +13,7 @@ namespace HeroesAndDragons.Controllers
 {
 
     [ApiController]
-    //[Authorize]
+    [Authorize]
     [Route("api/dragon")]
     public class DragonController : DefaultController<DragonAddApiModel, DragonGetFullApiModel, DragonEntity, string>
     {
@@ -36,7 +36,7 @@ namespace HeroesAndDragons.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("byid/{id}")]
+        [Route("byid")]
         public async Task<IActionResult> GetByIdAsync(string id)
         {
             return await base.GetById(id);
@@ -49,7 +49,7 @@ namespace HeroesAndDragons.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("update/{id}")]
+        [Route("update")]
         public async Task<IActionResult> UpdateAsync(string id, [FromBody] DragonAddApiModel model)
         {
             return await base.Put(id, model);

@@ -8,20 +8,17 @@ namespace HeroesAndDragons.Core.ApiModels.Base
 {
     public class AuthApiResult : IResult
     {
-        [JsonProperty("token")]         public string Token { get; set; }
-        [JsonProperty("token_type")]    public string TokenType { get; set; }
-        [JsonProperty("user")]          public HeroGetFullApiModel User { get; set; }
-        [JsonProperty("result")]        public ResultStatus ResultStatus { get; set; }
-
-        public static AuthApiResult CreateAuthModel(HeroGetFullApiModel user, string token, string tokenType = "Bearer", ResultStatus resultStatus = ResultStatus.Succeeded)
+        public AuthApiResult()
         {
-            return new AuthApiResult
-            {
-                ResultStatus = resultStatus,
-                Token = token,
-                TokenType = tokenType,
-                User = user
-            };
+            Token = null;
+            TokenType = "Bearer";
+            User = null;
+            ResultStatus = ResultStatus.Failed;
         }
+
+        [JsonProperty("token")]             public string Token { get; set; }
+        [JsonProperty("token_type")]        public string TokenType { get; set; }
+        [JsonProperty("user")]              public HeroGetFullApiModel User { get; set; }
+        [JsonProperty("result_status")]     public ResultStatus ResultStatus { get; set; }
     }
 }

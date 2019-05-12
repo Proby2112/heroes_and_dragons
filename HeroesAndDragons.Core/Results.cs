@@ -6,7 +6,7 @@ namespace HeroesAndDragons.Core
 {
     public enum ResultStatus
     {
+        Failed,
         Succeeded,
-        Failed
     }
 }

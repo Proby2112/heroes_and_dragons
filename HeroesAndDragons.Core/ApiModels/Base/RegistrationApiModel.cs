@@ -23,5 +23,8 @@ namespace HeroesAndDragons.Core.ApiModels.Base
         [Required]
         [JsonProperty("user")]
         public HeroAddApiModel Hero { get; set; }
+
+        [JsonProperty("remember")]
+        public bool Remember { get; set; }
     }
 }

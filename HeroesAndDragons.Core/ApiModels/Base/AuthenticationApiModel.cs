@@ -16,5 +16,8 @@ namespace HeroesAndDragons.Core.ApiModels.Base
         [DataType(DataType.Password)]
         [JsonProperty("password")]
         public string Password { get; set; }
+
+        [JsonProperty("remember")]
+        public bool Remember { get; set; }
     }
 }
