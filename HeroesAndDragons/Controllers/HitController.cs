@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace HeroesAndDragons.Controllers
@@ -24,7 +25,7 @@ namespace HeroesAndDragons.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("get")]
+        [Route("get_all")]
         public async Task<IActionResult> GetAllAsync()
         {
             return await base.GetAll();
@@ -64,6 +65,8 @@ namespace HeroesAndDragons.Controllers
         [Route("add")]
         public async Task<IActionResult> AddAsync([FromBody] HitAddApiModel model)
         {
+            model.HeroId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             return await base.Post(model);
         }
 

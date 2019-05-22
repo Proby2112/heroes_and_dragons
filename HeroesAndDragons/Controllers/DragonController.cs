@@ -64,12 +64,13 @@ namespace HeroesAndDragons.Controllers
         [Route("add")]
         public async Task<IActionResult> AddAsync()
         {
-            DragonAddApiModel model = new DragonAddApiModel
+            var model = new DragonAddApiModel
             {
+                Hp = 0,
                 Id = null,
-                Name = "farivnzd",
-                Hp = 100
+                Name = null
             };
+
             return await base.Post(model);
         }
 

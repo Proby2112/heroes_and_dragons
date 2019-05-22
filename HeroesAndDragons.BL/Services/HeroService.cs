@@ -87,7 +87,8 @@ namespace HeroesAndDragons.BL.Services
             // Add claims to entity
             IEnumerable<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, entity.UserName)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, entity.UserName),
+                new Claim(ClaimTypes.NameIdentifier, entity.Id)
             };
             await _userManager.AddClaimsAsync(entity, claims);
 

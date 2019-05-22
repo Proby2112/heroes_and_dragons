@@ -17,9 +17,6 @@ namespace HeroesAndDragons.DL
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            builder.Entity<HitEntity>()
-                .HasAlternateKey(eg => new { eg.HeroId, eg.DragonId });
         }
     }
 }
