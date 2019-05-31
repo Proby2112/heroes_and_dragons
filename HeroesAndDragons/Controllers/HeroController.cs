@@ -1,12 +1,10 @@
 ﻿using HeroesAndDragons.Controllers.Base;
 using HeroesAndDragons.Core.ApiModels;
+using HeroesAndDragons.Core.ApiModels.Base;
 using HeroesAndDragons.Core.Entities;
 using HeroesAndDragons.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HeroesAndDragons.Controllers
@@ -24,9 +22,9 @@ namespace HeroesAndDragons.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("get_all")]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery] RangeInfoApiModel rangeInfo)
         {
-            return await base.GetAll();
+            return await base.GetAll(rangeInfo);
         }
 
         /// <summary>

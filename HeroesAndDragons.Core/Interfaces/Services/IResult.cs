@@ -10,6 +10,6 @@ namespace HeroesAndDragons.Core.Interfaces.BL
         /// <summary>
         /// 
         /// </summary>
-        ResultStatus ResultStatus { get; set; }
+        ResultStatusEnum ResultStatus { get; set; }
     }
 }

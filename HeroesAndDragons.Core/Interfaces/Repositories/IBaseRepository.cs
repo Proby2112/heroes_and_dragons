@@ -1,4 +1,5 @@
-﻿using HeroesAndDragons.Core.Interfaces.DL;
+﻿using HeroesAndDragons.Core.ApiModels.Base;
+using HeroesAndDragons.Core.Interfaces.DL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace HeroesAndDragons.Core.Interfaces.Repositories
     {
         Task<TEntity> GetAsync(TKey id);
         Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<IEnumerable<TEntity>> GetRange(RangeInfoApiModel info);
 
         Task AddAsync(TEntity item);
 

@@ -41,7 +41,7 @@ namespace HeroesAndDragons.Controllers
                 var entity = await _service.GetByUserName(model);
                 var resultModel = await _service.Authenticate(entity, model.Password, model.Remember);
 
-                if (resultModel.ResultStatus == ResultStatus.Failed)
+                if (resultModel.ResultStatus == ResultStatusEnum.Failed)
                 {
                     return Unauthorized();
                 }
@@ -67,7 +67,7 @@ namespace HeroesAndDragons.Controllers
                 var entity = await _service.AddForAuthAsync(model);
                 var resultModel = await _service.Authenticate(entity, model.Password, model.Remember);
 
-                if (resultModel.ResultStatus == ResultStatus.Failed)
+                if (resultModel.ResultStatus == ResultStatusEnum.Failed)
                 {
                     return Unauthorized();
                 }

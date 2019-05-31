@@ -4,9 +4,9 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 
-namespace HeroesAndDragons.BL.Managers
+namespace HeroesAndDragons.Core.Helpers
 {
-    public static class Extensions
+    public static class BLExtensions
     {
         readonly static Random _random = new Random();
 

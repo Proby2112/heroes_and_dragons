@@ -1,4 +1,5 @@
-﻿using HeroesAndDragons.Core.Interfaces;
+﻿using HeroesAndDragons.Core.ApiModels.Base;
+using HeroesAndDragons.Core.Interfaces;
 using HeroesAndDragons.Core.Interfaces.BL;
 using HeroesAndDragons.Core.Interfaces.DL;
 using HeroesAndDragons.Core.Interfaces.Managers;
@@ -39,9 +40,9 @@ namespace HeroesAndDragons.BL.Services.Base
             return modelResult;
         }
 
-        public virtual async Task<List<TModel>> GetAll()
+        public virtual async Task<List<TModel>> GetAll(RangeInfoApiModel rangeInfo)
         {
-            var entities = await _repository.GetAllAsync();
+            var entities = await _repository.GetRange(rangeInfo);
             return _dataAdapter.Parse<TEntity, TModel>(entities).ToList();
         }
 

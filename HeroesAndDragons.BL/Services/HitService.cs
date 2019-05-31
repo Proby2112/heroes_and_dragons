@@ -1,15 +1,10 @@
-﻿using HeroesAndDragons.BL.Managers;
-using HeroesAndDragons.BL.Services.Base;
+﻿using HeroesAndDragons.BL.Services.Base;
 using HeroesAndDragons.Core.ApiModels;
 using HeroesAndDragons.Core.Entities;
+using HeroesAndDragons.Core.Helpers;
 using HeroesAndDragons.Core.Interfaces.Managers;
 using HeroesAndDragons.Core.Interfaces.Repositories;
 using HeroesAndDragons.Core.Interfaces.Services;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HeroesAndDragons.BL.Services

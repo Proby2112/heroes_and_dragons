@@ -1,4 +1,5 @@
-﻿using HeroesAndDragons.Core.Interfaces.BL;
+﻿using HeroesAndDragons.Core.ApiModels.Base;
+using HeroesAndDragons.Core.Interfaces.BL;
 using HeroesAndDragons.Core.Interfaces.DL;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace HeroesAndDragons.Core.Interfaces.Services
         where TEntity : class, IBaseEntity<TKey>
         where TKey : IEquatable<TKey>, IComparable<TKey>
     {
-        Task<List<TModel>> GetAll();
+        Task<List<TModel>> GetAll(RangeInfoApiModel rangeInfo);
 
         Task<TModel> Get(TKey id);
 

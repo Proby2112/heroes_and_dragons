@@ -1,9 +1,9 @@
-﻿using HeroesAndDragons.BL.Managers;
-using HeroesAndDragons.BL.Services.Base;
+﻿using HeroesAndDragons.BL.Services.Base;
 using HeroesAndDragons.Core;
 using HeroesAndDragons.Core.ApiModels;
 using HeroesAndDragons.Core.ApiModels.Base;
 using HeroesAndDragons.Core.Entities;
+using HeroesAndDragons.Core.Helpers;
 using HeroesAndDragons.Core.Interfaces.Managers;
 using HeroesAndDragons.Core.Interfaces.Repositories;
 using HeroesAndDragons.Core.Interfaces.Services;
@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HeroesAndDragons.BL.Services
@@ -54,7 +53,7 @@ namespace HeroesAndDragons.BL.Services
             if (confirmPassword == PasswordVerificationResult.Success)
             {
                 authResult.Token = await _tokenManager.GetToken(entity, remember);
-                authResult.ResultStatus = ResultStatus.Succeeded;
+                authResult.ResultStatus = ResultStatusEnum.Succeeded;
             }
 
             return authResult;

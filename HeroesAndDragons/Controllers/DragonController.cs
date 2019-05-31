@@ -1,19 +1,17 @@
 ﻿using HeroesAndDragons.Controllers.Base;
 using HeroesAndDragons.Core.ApiModels;
+using HeroesAndDragons.Core.ApiModels.Base;
 using HeroesAndDragons.Core.Entities;
 using HeroesAndDragons.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HeroesAndDragons.Controllers
 {
 
     [ApiController]
-    [Authorize]
+    [AllowAnonymous]
     [Route("api/dragon")]
     public class DragonController : DefaultController<DragonAddApiModel, DragonGetFullApiModel, DragonEntity, string>
     {
@@ -25,9 +23,9 @@ namespace HeroesAndDragons.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("get_all")]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery] RangeInfoApiModel rangeInfo)
         {
-            return await base.GetAll();
+            return await base.GetAll(rangeInfo);
         }
 
         /// <summary>

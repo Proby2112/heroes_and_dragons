@@ -1,4 +1,5 @@
-﻿using HeroesAndDragons.Core.Interfaces.BL;
+﻿using HeroesAndDragons.Core.ApiModels.Base;
+using HeroesAndDragons.Core.Interfaces.BL;
 using HeroesAndDragons.Core.Interfaces.DL;
 using HeroesAndDragons.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -22,11 +23,11 @@ namespace HeroesAndDragons.Controllers.Base
             _service = service;
         }
 
-        protected virtual async Task<IActionResult> GetAll()
+        protected virtual async Task<IActionResult> GetAll([System.Web.Http.FromUri] RangeInfoApiModel rangeInfo)
         {
             try
             {
-                var models = await _service.GetAll();
+                var models = await _service.GetAll(rangeInfo);
 
                 return Ok(models);
             }

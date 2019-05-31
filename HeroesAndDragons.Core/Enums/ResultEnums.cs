@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HeroesAndDragons.Core
 {
-    public enum ResultStatus
+    public enum ResultStatusEnum
     {
         Failed,
         Succeeded,

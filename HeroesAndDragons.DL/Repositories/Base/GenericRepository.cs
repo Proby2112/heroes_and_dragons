@@ -1,12 +1,11 @@
-﻿using HeroesAndDragons.Core.Interfaces.DL;
+﻿using HeroesAndDragons.Core.ApiModels.Base;
+using HeroesAndDragons.Core.Interfaces.DL;
 using HeroesAndDragons.Core.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using static HeroesAndDragons.Core.Enums.RequestEnums;
 
 namespace HeroesAndDragons.DL.Repositories.Base
 {
@@ -51,6 +50,37 @@ namespace HeroesAndDragons.DL.Repositories.Base
         public virtual IEnumerable<TEntity> GelAll()
         {
             return Entities;
+        }
+
+        public virtual IEnumerable<TEntity> GetRange(RangeInfoApiModel rangeInfo)
+        {
+            IQueryable<TEntity> result;
+
+            if (rangeInfo == null) return Entities;
+
+            switch (rangeInfo.Sort)
+            {
+                case SortEnum.CreateTime:
+                    result = Entities.OrderBy(x => x.Created);
+                    break;
+                case SortEnum.UpdateTime:
+                    result = Entities.OrderBy(x => x.Updated);
+                    break;
+                case SortEnum.CreateTimeByDescending:
+                    result = Entities.OrderByDescending(x => x.Created);
+                    break;
+                case SortEnum.UpdateTimeByDescending:
+                    result = Entities.OrderByDescending(x => x.Updated);
+                    break;
+                default:
+                    result = Entities.OrderBy(x => x.Id);
+                    break;
+            }
+
+            result = rangeInfo.Start.HasValue ? result.Skip(rangeInfo.Start.Value) : result;
+            result = rangeInfo.Count.HasValue ? result.Take(rangeInfo.Count.Value) : result;
+
+            return result.ToList();
         }
 
         public virtual bool Insert(IEnumerable<TEntity> entities)
@@ -104,11 +134,6 @@ namespace HeroesAndDragons.DL.Repositories.Base
         public virtual bool Delete(TEntity entity)
         {
             return Delete(new List<TEntity>() { entity });
-        }
-
-        public virtual TEntity GetSingle()
-        {
-            return Table.ToList().Single();
         }
 
         public bool SaveChanges()

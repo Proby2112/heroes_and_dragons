@@ -1,4 +1,5 @@
-﻿using HeroesAndDragons.Core.Interfaces.DL;
+﻿using HeroesAndDragons.Core.ApiModels.Base;
+using HeroesAndDragons.Core.Interfaces.DL;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace HeroesAndDragons.Core.Interfaces.Repositories
 
         TEntity GetById(string id);
         IEnumerable<TEntity> GelAll();
+        IEnumerable<TEntity> GetRange(RangeInfoApiModel info);
 
         bool Insert(IEnumerable<TEntity> entities);
         bool Insert(TEntity entity);
@@ -24,7 +26,6 @@ namespace HeroesAndDragons.Core.Interfaces.Repositories
         bool Delete(IEnumerable<TEntity> entities);
         bool Delete(TEntity entity);
 
-        TEntity GetSingle();
 
         void Entry<T, TK>(T primary, EntityState state)
             where T : class, IBaseEntity<TK>

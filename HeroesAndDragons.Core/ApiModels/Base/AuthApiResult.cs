@@ -13,12 +13,12 @@ namespace HeroesAndDragons.Core.ApiModels.Base
             Token = null;
             TokenType = "Bearer";
             User = null;
-            ResultStatus = ResultStatus.Failed;
+            ResultStatus = ResultStatusEnum.Failed;
         }
 
         [JsonProperty("token")]             public string Token { get; set; }
         [JsonProperty("token_type")]        public string TokenType { get; set; }
         [JsonProperty("user")]              public HeroGetFullApiModel User { get; set; }
-        [JsonProperty("result_status")]     public ResultStatus ResultStatus { get; set; }
+        [JsonProperty("result_status")]     public ResultStatusEnum ResultStatus { get; set; }
     }
 }
