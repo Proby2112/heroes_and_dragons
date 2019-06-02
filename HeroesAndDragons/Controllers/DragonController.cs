@@ -5,17 +5,23 @@ using HeroesAndDragons.Core.Entities;
 using HeroesAndDragons.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace HeroesAndDragons.Controllers
 {
 
     [ApiController]
-    [AllowAnonymous]
+    [Authorize]
     [Route("api/dragon")]
     public class DragonController : DefaultController<DragonAddApiModel, DragonGetFullApiModel, DragonEntity, string>
     {
-        public DragonController(IDragonService service) : base(service) { }
+        new IDragonService _service;
+
+        public DragonController(IDragonService service) : base(service)
+        {
+            _service = service;
+        }
 
         /// <summary>
         /// Take all Dragon models
@@ -23,9 +29,29 @@ namespace HeroesAndDragons.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("get_all")]
-        public async Task<IActionResult> GetAllAsync([FromQuery] RangeInfoApiModel rangeInfo)
+        public async Task<IActionResult> GetAllAsync([FromQuery] BaseFilterApiModel rangeInfo)
         {
             return await base.GetAll(rangeInfo);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("get_alive")]
+        public async Task<IActionResult> GetAliveAsync([FromQuery] DragonFilterApiModel filterModel)
+        {
+            try
+            {
+                var models = await _service.GetAlive(filterModel);
+
+                return Ok(models);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         /// <summary>
@@ -38,6 +64,28 @@ namespace HeroesAndDragons.Controllers
         public async Task<IActionResult> GetByIdAsync(string id)
         {
             return await base.GetById(id);
+        }
+
+        /// <summary>
+        /// Get collection of DragonEntities for authenticated Hero
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("for_current_hero")]
+        public async Task<IActionResult> GetForHeroAsync([FromQuery] DragonSortApiModel filterModel)
+        {
+            try
+            {
+                var heroId = UserId;
+                var model = await _service.GetForCurrentHero(filterModel, heroId);
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         /// <summary>

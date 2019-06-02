@@ -17,6 +17,16 @@ namespace HeroesAndDragons.DL
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<HitEntity>()
+                .HasOne(h => h.Dragon)
+                .WithMany(d => d.Hits)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<HitEntity>()
+                .HasOne(h => h.Hero)
+                .WithMany(d => d.Hits)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

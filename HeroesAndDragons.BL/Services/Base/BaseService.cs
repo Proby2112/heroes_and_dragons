@@ -40,9 +40,9 @@ namespace HeroesAndDragons.BL.Services.Base
             return modelResult;
         }
 
-        public virtual async Task<List<TModel>> GetAll(RangeInfoApiModel rangeInfo)
+        public virtual async Task<List<TModel>> GetAll(BaseFilterApiModel rangeInfo)
         {
-            var entities = await _repository.GetRange(rangeInfo);
+            var entities = await _repository.GetAllAsync(rangeInfo);
             return _dataAdapter.Parse<TEntity, TModel>(entities).ToList();
         }
 

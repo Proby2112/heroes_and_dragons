@@ -9,6 +9,7 @@ namespace HeroesAndDragons.Core.ApiModels.Base
 {
     public class BaseModel<TKey> : IBaseModel<TKey> where TKey : IEquatable<TKey>, IComparable<TKey>
     {
-        [JsonProperty("id")]    public TKey Id { get; set; }
+        [JsonProperty("id")]            public TKey Id { get; set; }
+        [JsonProperty("cteate_time")]   public DateTime? Created { get; set; }
     }
 }

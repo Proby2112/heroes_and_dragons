@@ -24,6 +24,13 @@ namespace HeroesAndDragons.Core.Interfaces.Services
         /// <param name="model"></param>
         /// <returns></returns>
         Task<HeroEntity> GetByUserName(AuthenticationApiModel model);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filterModel"></param>
+        /// <returns></returns>
+        Task<IEnumerable<HeroGetMinApiModel>> GetAll(HeroFilterApiModel filterModel);
     }
 }
 

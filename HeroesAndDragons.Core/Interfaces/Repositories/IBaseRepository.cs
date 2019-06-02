@@ -14,8 +14,7 @@ namespace HeroesAndDragons.Core.Interfaces.Repositories
         where TKey : IEquatable<TKey>, IComparable<TKey>
     {
         Task<TEntity> GetAsync(TKey id);
-        Task<IEnumerable<TEntity>> GetAllAsync();
-        Task<IEnumerable<TEntity>> GetRange(RangeInfoApiModel info);
+        Task<IEnumerable<TEntity>> GetAllAsync(BaseFilterApiModel filterModel);
 
         Task AddAsync(TEntity item);
 

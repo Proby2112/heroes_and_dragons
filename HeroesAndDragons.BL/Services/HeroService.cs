@@ -19,11 +19,13 @@ namespace HeroesAndDragons.BL.Services
 
     public class HeroService : BaseService<HeroAddApiModel, HeroGetFullApiModel, HeroEntity, string>, IHeroService
     {
+        new IHeroRepository _repository;
         ITokenManager<HeroEntity, string> _tokenManager;
         UserManager<HeroEntity> _userManager;
 
         public HeroService(IHeroRepository repository, IDataAdapter dataAdapter, ITokenManager<HeroEntity, string> tokenManager, UserManager<HeroEntity> userManager) : base(repository, dataAdapter)
         {
+            _repository = repository;
             _tokenManager = tokenManager;
             _userManager = userManager;
         }
@@ -48,7 +50,7 @@ namespace HeroesAndDragons.BL.Services
             var authResult = new AuthApiResult();
             var confirmPassword = _userManager.PasswordHasher.VerifyHashedPassword(entity, entity.PasswordHash, password);
 
-            authResult.User = _dataAdapter.Parse<HeroEntity, HeroGetFullApiModel>(entity);
+            authResult.User = _dataAdapter.Parse<HeroEntity, HeroGetMinApiModel>(entity);
 
             if (confirmPassword == PasswordVerificationResult.Success)
             {
@@ -57,6 +59,22 @@ namespace HeroesAndDragons.BL.Services
             }
 
             return authResult;
+        }
+
+        public async Task<IEnumerable<HeroGetMinApiModel>> GetAll(HeroFilterApiModel filterModel)
+        {
+            IEnumerable<HeroEntity> entities;
+
+            if (filterModel?.OptionFilter == false)
+            {
+                entities = await _repository.GetAllAsync(filterModel); 
+            }
+            else
+            {
+                entities = await _repository.GetByFilter(filterModel);
+            }
+
+            return _dataAdapter.Parse<HeroEntity, HeroGetMinApiModel>(entities);
         }
 
         public async Task<HeroEntity> GetByUserName(AuthenticationApiModel model)

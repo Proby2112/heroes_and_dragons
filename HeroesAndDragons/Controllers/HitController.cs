@@ -24,7 +24,7 @@ namespace HeroesAndDragons.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("get_all")]
-        public async Task<IActionResult> GetAllAsync([FromQuery] RangeInfoApiModel rangeInfo)
+        public async Task<IActionResult> GetAllAsync([FromQuery] BaseFilterApiModel rangeInfo)
         {
             return await base.GetAll(rangeInfo);
         }
@@ -63,7 +63,7 @@ namespace HeroesAndDragons.Controllers
         [Route("add")]
         public async Task<IActionResult> AddAsync([FromBody] HitAddApiModel model)
         {
-            model.HeroId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            model.HeroId = UserId;
 
             return await base.Post(model);
         }

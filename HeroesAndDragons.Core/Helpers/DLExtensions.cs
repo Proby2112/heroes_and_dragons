@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HeroesAndDragons.Core.ApiModels.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -82,5 +83,17 @@ namespace HeroesAndDragons.Core.Helpers
 
             return isChanged;
         }
+
+        public static IQueryable<TEntity> GetRange<TEntity>(this IQueryable<TEntity> entities, BaseFilterApiModel rangeInfo)
+        {
+            if (rangeInfo == null) return entities;
+
+            entities = rangeInfo.Start.HasValue ? entities.Skip(rangeInfo.Start.Value) : entities;
+            entities = rangeInfo.Count.HasValue ? entities.Take(rangeInfo.Count.Value) : entities;
+
+            return entities;
+        }
+
+        //public static IQueryable<TSource> GetFilterQuery<TSource>(this TSource source,  )
     }
 }

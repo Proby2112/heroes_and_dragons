@@ -6,12 +6,12 @@ namespace HeroesAndDragons.Core.Enums
 {
     public class RequestEnums
     {
-        public enum SortEnum
+        public enum DragonSortEnum
         {
-            CreateTime,
-            UpdateTime,
-            CreateTimeByDescending,
-            UpdateTimeByDescending,
+            Name,
+            Damage,
+            DescendingName,
+            DescendingDamage,
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using HeroesAndDragons.Core.ApiModels.Base;
+using HeroesAndDragons.Core.Entities;
 using HeroesAndDragons.Core.Interfaces.BL;
 using HeroesAndDragons.Core.Interfaces.DL;
 using HeroesAndDragons.Core.Interfaces.Services;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace HeroesAndDragons.Controllers.Base
@@ -23,7 +25,9 @@ namespace HeroesAndDragons.Controllers.Base
             _service = service;
         }
 
-        protected virtual async Task<IActionResult> GetAll([System.Web.Http.FromUri] RangeInfoApiModel rangeInfo)
+        protected string UserId => User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+        protected virtual async Task<IActionResult> GetAll([System.Web.Http.FromUri] BaseFilterApiModel rangeInfo)
         {
             try
             {

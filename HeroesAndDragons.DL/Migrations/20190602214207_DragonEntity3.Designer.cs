@@ -4,14 +4,16 @@ using HeroesAndDragons.DL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HeroesAndDragons.DL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190602214207_DragonEntity3")]
+    partial class DragonEntity3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,8 +243,7 @@ namespace HeroesAndDragons.DL.Migrations
 
                     b.HasOne("HeroesAndDragons.Core.Entities.HeroEntity", "Hero")
                         .WithMany("Hits")
-                        .HasForeignKey("HeroId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("HeroId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

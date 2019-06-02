@@ -5,6 +5,7 @@ using HeroesAndDragons.Core.Entities;
 using HeroesAndDragons.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace HeroesAndDragons.Controllers
@@ -15,16 +16,30 @@ namespace HeroesAndDragons.Controllers
     [Route("api/hero")]
     public class HeroController : DefaultController<HeroAddApiModel, HeroGetFullApiModel, HeroEntity, string>
     {
-        public HeroController(IHeroService service) : base(service) { }
+        new IHeroService _service;
+
+        public HeroController(IHeroService service) : base(service)
+        {
+            _service = service;
+        }
 
         /// <summary>
         /// Take all Hero models
         /// </summary>
         /// <returns></returns>
         [HttpGet("get_all")]
-        public async Task<IActionResult> GetAllAsync([FromQuery] RangeInfoApiModel rangeInfo)
+        public async Task<IActionResult> GetAllAsync([FromQuery] HeroFilterApiModel filterModel)
         {
-            return await base.GetAll(rangeInfo);
+            try
+            {
+                var models = await _service.GetAll(filterModel);
+
+                return Ok(models);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         /// <summary>

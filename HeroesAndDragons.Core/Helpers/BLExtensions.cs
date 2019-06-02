@@ -52,7 +52,7 @@ namespace HeroesAndDragons.Core.Helpers
         /// <returns></returns>
         public static int ImpactForce(this int eigenvalue)
         {
-            eigenvalue *= _random.Next(0, 4);
+            eigenvalue += _random.Next(0, 4);
 
             return eigenvalue;
         }

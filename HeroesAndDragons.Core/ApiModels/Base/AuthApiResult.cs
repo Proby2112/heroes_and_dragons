@@ -18,7 +18,7 @@ namespace HeroesAndDragons.Core.ApiModels.Base
 
         [JsonProperty("token")]             public string Token { get; set; }
         [JsonProperty("token_type")]        public string TokenType { get; set; }
-        [JsonProperty("user")]              public HeroGetFullApiModel User { get; set; }
+        [JsonProperty("user")]              public HeroGetMinApiModel User { get; set; }
         [JsonProperty("result_status")]     public ResultStatusEnum ResultStatus { get; set; }
     }
 }

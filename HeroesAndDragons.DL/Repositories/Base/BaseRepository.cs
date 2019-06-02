@@ -6,8 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using static HeroesAndDragons.Core.Enums.RequestEnums;
 
 namespace HeroesAndDragons.DL.Repositories.Base
 {
@@ -32,15 +34,20 @@ namespace HeroesAndDragons.DL.Repositories.Base
             return Task.FromResult("Ok");
         }
 
-        public virtual Task<IEnumerable<TEntity>> GetAllAsync()
+        public virtual Task<TEntity> GetAsync(TKey id)
         {
-            var res = _repository.Table.ToList();
-            return Task.FromResult<IEnumerable<TEntity>>(res);
+            var res = _repository.Table.FirstOrDefault(x => x.Id.Equals(id));
+            if (res == null)
+            {
+                throw new ArgumentException($"Model id: {id} is not found");
+            }
+
+            return Task.FromResult(res);
         }
 
-        public Task<IEnumerable<TEntity>> GetRange(RangeInfoApiModel rangeInfo)
+        public virtual Task<IEnumerable<TEntity>> GetAllAsync(BaseFilterApiModel filterModel)
         {
-            var res = _repository.GetRange(rangeInfo);
+            var res = _repository.Table.GetRange(filterModel).ToList();
             return Task.FromResult<IEnumerable<TEntity>>(res);
         }
 
@@ -72,17 +79,6 @@ namespace HeroesAndDragons.DL.Repositories.Base
         {
             var result = _repository.Table.Where(search).FirstOrDefault();
             return Task.FromResult(result);
-        }
-
-        public virtual Task<TEntity> GetAsync(TKey id)
-        {
-            var res = _repository.Table.FirstOrDefault(x => x.Id.Equals(id));
-            if (res == null)
-            {
-                throw new ArgumentException($"Model id: {id} is not found");
-            }
-
-            return Task.FromResult(res);
         }
 
         public virtual Task RemoveAsync(TKey id)

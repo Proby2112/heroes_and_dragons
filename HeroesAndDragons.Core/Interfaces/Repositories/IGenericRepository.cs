@@ -15,7 +15,6 @@ namespace HeroesAndDragons.Core.Interfaces.Repositories
 
         TEntity GetById(string id);
         IEnumerable<TEntity> GelAll();
-        IEnumerable<TEntity> GetRange(RangeInfoApiModel info);
 
         bool Insert(IEnumerable<TEntity> entities);
         bool Insert(TEntity entity);

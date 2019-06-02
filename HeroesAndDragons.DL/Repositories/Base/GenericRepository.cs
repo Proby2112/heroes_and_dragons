@@ -52,37 +52,6 @@ namespace HeroesAndDragons.DL.Repositories.Base
             return Entities;
         }
 
-        public virtual IEnumerable<TEntity> GetRange(RangeInfoApiModel rangeInfo)
-        {
-            IQueryable<TEntity> result;
-
-            if (rangeInfo == null) return Entities;
-
-            switch (rangeInfo.Sort)
-            {
-                case SortEnum.CreateTime:
-                    result = Entities.OrderBy(x => x.Created);
-                    break;
-                case SortEnum.UpdateTime:
-                    result = Entities.OrderBy(x => x.Updated);
-                    break;
-                case SortEnum.CreateTimeByDescending:
-                    result = Entities.OrderByDescending(x => x.Created);
-                    break;
-                case SortEnum.UpdateTimeByDescending:
-                    result = Entities.OrderByDescending(x => x.Updated);
-                    break;
-                default:
-                    result = Entities.OrderBy(x => x.Id);
-                    break;
-            }
-
-            result = rangeInfo.Start.HasValue ? result.Skip(rangeInfo.Start.Value) : result;
-            result = rangeInfo.Count.HasValue ? result.Take(rangeInfo.Count.Value) : result;
-
-            return result.ToList();
-        }
-
         public virtual bool Insert(IEnumerable<TEntity> entities)
         {
             entities.ToList().ForEach(entity => Entities.Add(entity));

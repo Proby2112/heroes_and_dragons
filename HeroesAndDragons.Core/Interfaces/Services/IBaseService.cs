@@ -14,7 +14,7 @@ namespace HeroesAndDragons.Core.Interfaces.Services
         where TEntity : class, IBaseEntity<TKey>
         where TKey : IEquatable<TKey>, IComparable<TKey>
     {
-        Task<List<TModel>> GetAll(RangeInfoApiModel rangeInfo);
+        Task<List<TModel>> GetAll(BaseFilterApiModel rangeInfo);
 
         Task<TModel> Get(TKey id);
 

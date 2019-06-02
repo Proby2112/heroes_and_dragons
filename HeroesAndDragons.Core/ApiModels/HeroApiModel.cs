@@ -10,12 +10,12 @@ namespace HeroesAndDragons.Core.ApiModels
 
     public abstract class HeroBaseApiModel : BaseModel<string>
     {
-        [Required, JsonProperty("name")]      public string UserName { get; set; }
-        [Required, JsonProperty("weapon")]    public int Weapon { get; set; }
+        [Required, JsonProperty("name")]        public string UserName { get; set; }
+        [JsonIgnore, JsonProperty("weapon")]    public int Weapon { get; set; }
     }
     public class HeroGetFullApiModel : HeroBaseApiModel
     {
-        [JsonProperty("hits")]      public List<HitGetMinApiModel> Hits { get; set; }
+        [JsonProperty("hits")]                  public List<HitGetMinApiModel> Hits { get; set; }
     }
     public class HeroGetMinApiModel : HeroBaseApiModel
     {
