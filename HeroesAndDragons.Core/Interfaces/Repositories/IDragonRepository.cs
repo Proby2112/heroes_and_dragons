@@ -15,7 +15,7 @@ namespace HeroesAndDragons.Core.Interfaces.Repositories
         /// </summary>
         /// <param name="filterModel"></param>
         /// <returns></returns>
-        Task<IEnumerable<DragonEntity>> GetAliveAsync(BaseFilterApiModel filterModel);
+        Task<IEnumerable<DragonEntity>> GetAlive(BaseFilterApiModel filterModel);
 
         /// <summary>
         /// 

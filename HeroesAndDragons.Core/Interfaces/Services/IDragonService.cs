@@ -15,13 +15,13 @@ namespace HeroesAndDragons.Core.Interfaces.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<IEnumerable<DragonGetMinApiModel>> GetAlive(DragonFilterApiModel model);
+        Task<IEnumerable<DragonGetMinApiModel>> GetAliveAsync(DragonFilterApiModel model);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="hero"></param>
         /// <returns></returns>
-        Task<IEnumerable<DragonGetMinApiModel>> GetForCurrentHero(DragonSortApiModel filterModel, string heroId);
+        Task<IEnumerable<DragonGetMinApiModel>> GetForCurrentHeroAsync(DragonSortApiModel filterModel, string heroId);
     }
 }

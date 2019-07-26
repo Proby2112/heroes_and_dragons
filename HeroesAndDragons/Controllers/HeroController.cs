@@ -32,7 +32,7 @@ namespace HeroesAndDragons.Controllers
         {
             try
             {
-                var models = await _service.GetAll(filterModel);
+                var models = await _service.GetAllAsync(filterModel);
 
                 return Ok(models);
             }

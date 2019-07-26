@@ -22,7 +22,7 @@ namespace HeroesAndDragons.DL.Repositories
     {
         public DragonRepository(IGenericRepository<DragonEntity, string> repository) : base(repository) { }
 
-        public Task<IEnumerable<DragonEntity>> GetAliveAsync(BaseFilterApiModel filterModel)
+        public Task<IEnumerable<DragonEntity>> GetAlive(BaseFilterApiModel filterModel)
         {
             var res = _repository.Table
                 .Where(e => e.DragonState == DragonStateEnum.IsAlive)
@@ -32,7 +32,7 @@ namespace HeroesAndDragons.DL.Repositories
             return Task.FromResult<IEnumerable<DragonEntity>>(res);
         }
 
-        public override Task<IEnumerable<DragonEntity>> GetAllAsync(BaseFilterApiModel filterModel)
+        public override Task<IEnumerable<DragonEntity>> GetAll(BaseFilterApiModel filterModel)
         {
             var res = _repository.Table
                 .OrderBy(e => e.Name)
@@ -66,11 +66,11 @@ namespace HeroesAndDragons.DL.Repositories
             return Task.FromResult(entities);
         }
 
-        public override Task PutAsync(string id, DragonEntity item)
+        public override Task Put(string id, DragonEntity item)
         {
             item.Damage = item.Hp - item.CurrentHp;
 
-            return base.PutAsync(id, item);
+            return base.Put(id, item);
         }
     }
 

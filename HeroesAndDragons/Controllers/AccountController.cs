@@ -38,8 +38,8 @@ namespace HeroesAndDragons.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var entity = await _service.GetByUserName(model);
-                var resultModel = await _service.Authenticate(entity, model.Password, model.Remember);
+                var entity = await _service.GetByUserNameAsync(model);
+                var resultModel = await _service.AuthenticateAsync(entity, model.Password, model.Remember);
 
                 if (resultModel.ResultStatus == ResultStatusEnum.Failed)
                 {
@@ -65,7 +65,7 @@ namespace HeroesAndDragons.Controllers
                 }
 
                 var entity = await _service.AddForAuthAsync(model);
-                var resultModel = await _service.Authenticate(entity, model.Password, model.Remember);
+                var resultModel = await _service.AuthenticateAsync(entity, model.Password, model.Remember);
 
                 if (resultModel.ResultStatus == ResultStatusEnum.Failed)
                 {

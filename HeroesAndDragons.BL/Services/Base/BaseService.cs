@@ -32,9 +32,9 @@ namespace HeroesAndDragons.BL.Services.Base
         public virtual async Task<TModel> AddAsync(TModelToAdd model)
         {
             var entity = _dataAdapter.Parse<TModelToAdd, TEntity>(model);
-            await _repository.AddAsync(entity);
+            await _repository.Add(entity);
 
-            entity = await _repository.GetAsync(entity.Id);
+            entity = await _repository.Get(entity.Id);
             var modelResult = _dataAdapter.Parse<TEntity, TModel>(entity);
 
             return modelResult;
@@ -42,27 +42,27 @@ namespace HeroesAndDragons.BL.Services.Base
 
         public virtual async Task<List<TModel>> GetAll(BaseFilterApiModel rangeInfo)
         {
-            var entities = await _repository.GetAllAsync(rangeInfo);
+            var entities = await _repository.GetAll(rangeInfo);
             return _dataAdapter.Parse<TEntity, TModel>(entities).ToList();
         }
 
         public virtual async Task<TModel> Get(TKey id)
         {
-            var entity = await _repository.GetAsync(id);
+            var entity = await _repository.Get(id);
             return _dataAdapter.Parse<TEntity, TModel>(entity);
         }
 
         public virtual async Task Remove(TKey id)
         {
-            await _repository.RemoveAsync(id);
+            await _repository.Remove(id);
         }
 
         public virtual async Task<TModel> Update(TKey id, TModelToAdd value)
         {
             var entity = _dataAdapter.Parse<TModelToAdd, TEntity>(value);
-            await _repository.PutAsync(id, entity);
+            await _repository.Put(id, entity);
 
-            entity = await _repository.GetAsync(entity.Id);
+            entity = await _repository.Get(entity.Id);
 
             return _dataAdapter.Parse<TEntity, TModel>(entity);
         }

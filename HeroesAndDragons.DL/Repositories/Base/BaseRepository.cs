@@ -25,7 +25,7 @@ namespace HeroesAndDragons.DL.Repositories.Base
             _repository = repository;
         }
 
-        public virtual Task AddAsync(TEntity item)
+        public virtual Task Add(TEntity item)
         {
 
             item.SetId();
@@ -34,7 +34,19 @@ namespace HeroesAndDragons.DL.Repositories.Base
             return Task.FromResult("Ok");
         }
 
-        public virtual Task<TEntity> GetAsync(TKey id)
+        public virtual Task<bool> Any(Expression<Func<TEntity, bool>> search)
+        {
+            var result = _repository.Table.Any(search);
+            return Task.FromResult(result);
+        }
+
+        public virtual Task<TEntity> FirstOrDefault(Expression<Func<TEntity, bool>> search)
+        {
+            var result = _repository.Table.Where(search).FirstOrDefault();
+            return Task.FromResult(result);
+        }
+
+        public virtual Task<TEntity> Get(TKey id)
         {
             var res = _repository.Table.FirstOrDefault(x => x.Id.Equals(id));
             if (res == null)
@@ -45,55 +57,13 @@ namespace HeroesAndDragons.DL.Repositories.Base
             return Task.FromResult(res);
         }
 
-        public virtual Task<IEnumerable<TEntity>> GetAllAsync(BaseFilterApiModel filterModel)
+        public virtual Task<IEnumerable<TEntity>> GetAll(BaseFilterApiModel filterModel)
         {
             var res = _repository.Table.GetRange(filterModel).ToList();
             return Task.FromResult<IEnumerable<TEntity>>(res);
         }
 
-        public virtual Task RemoveAsync(TEntity entity)
-        {
-            _repository.Delete(new List<TEntity>() { entity });
-            return Task.FromResult("Ok");
-        }
-
-        public virtual Task RemoveAsync(IEnumerable<TEntity> entities)
-        {
-            _repository.Delete(entities);
-            return Task.FromResult("Ok");
-        }
-
-        public virtual Task<bool> AnyAsync(Expression<Func<TEntity, bool>> search)
-        {
-            var result = _repository.Table.Any(search);
-            return Task.FromResult(result);
-        }
-
-        public virtual Task<IQueryable<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> search)
-        {
-            var result = _repository.Table.Where(search);
-            return Task.FromResult(result);
-        }
-
-        public virtual Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> search)
-        {
-            var result = _repository.Table.Where(search).FirstOrDefault();
-            return Task.FromResult(result);
-        }
-
-        public virtual Task RemoveAsync(TKey id)
-        {
-            var res = _repository.Table.ToList().Find(x => x.Id.Equals(id));
-            if (res == null)
-            {
-                throw new ArgumentException($"Model id: {id} is not found");
-            }
-
-            _repository.Delete(new List<TEntity>() { res });
-            return Task.FromResult("Ok");
-        }
-
-        public virtual Task PutAsync(TKey id, TEntity item)
+        public virtual Task Put(TKey id, TEntity item)
         {
             var res = _repository.Table.FirstOrDefault(x => x.Id.Equals(id));
             if (res == null)
@@ -109,6 +79,36 @@ namespace HeroesAndDragons.DL.Repositories.Base
             _repository.SaveChanges();
 
             return Task.FromResult("Ok");
+        }
+
+        public virtual Task Remove(IEnumerable<TEntity> entities)
+        {
+            _repository.Delete(entities);
+            return Task.FromResult("Ok");
+        }
+
+        public virtual Task Remove(TEntity entity)
+        {
+            _repository.Delete(new List<TEntity>() { entity });
+            return Task.FromResult("Ok");
+        }
+
+        public virtual Task Remove(TKey id)
+        {
+            var res = _repository.Table.ToList().Find(x => x.Id.Equals(id));
+            if (res == null)
+            {
+                throw new ArgumentException($"Model id: {id} is not found");
+            }
+
+            _repository.Delete(new List<TEntity>() { res });
+            return Task.FromResult("Ok");
+        }
+
+        public virtual Task<IQueryable<TEntity>> Where(Expression<Func<TEntity, bool>> search)
+        {
+            var result = _repository.Table.Where(search);
+            return Task.FromResult(result);
         }
     }
 }

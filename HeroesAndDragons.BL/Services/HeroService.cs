@@ -32,7 +32,7 @@ namespace HeroesAndDragons.BL.Services
 
         public async Task<HeroGetFullApiModel> AddAsync(RegistrationApiModel model)
         {
-            var entity = await CreateEntity(model.Hero, model.Password);
+            var entity = await CreateEntityAsync(model.Hero, model.Password);
             var modelResult = _dataAdapter.Parse<HeroEntity, HeroGetFullApiModel>(entity);
 
             return modelResult;
@@ -40,12 +40,12 @@ namespace HeroesAndDragons.BL.Services
 
         public async Task<HeroEntity> AddForAuthAsync(RegistrationApiModel model)
         {
-            var entity = await CreateEntity(model.Hero, model.Password);
+            var entity = await CreateEntityAsync(model.Hero, model.Password);
 
             return entity;
         }
 
-        public async Task<AuthApiResult> Authenticate(HeroEntity entity, string password, bool remember)
+        public async Task<AuthApiResult> AuthenticateAsync(HeroEntity entity, string password, bool remember)
         {
             var authResult = new AuthApiResult();
             var confirmPassword = _userManager.PasswordHasher.VerifyHashedPassword(entity, entity.PasswordHash, password);
@@ -61,13 +61,13 @@ namespace HeroesAndDragons.BL.Services
             return authResult;
         }
 
-        public async Task<IEnumerable<HeroGetMinApiModel>> GetAll(HeroFilterApiModel filterModel)
+        public async Task<IEnumerable<HeroGetMinApiModel>> GetAllAsync(HeroFilterApiModel filterModel)
         {
             IEnumerable<HeroEntity> entities;
 
             if (filterModel?.OptionFilter == false)
             {
-                entities = await _repository.GetAllAsync(filterModel); 
+                entities = await _repository.GetAll(filterModel); 
             }
             else
             {
@@ -77,14 +77,14 @@ namespace HeroesAndDragons.BL.Services
             return _dataAdapter.Parse<HeroEntity, HeroGetMinApiModel>(entities);
         }
 
-        public async Task<HeroEntity> GetByUserName(AuthenticationApiModel model)
+        public async Task<HeroEntity> GetByUserNameAsync(AuthenticationApiModel model)
         {
             var entity = await _userManager.FindByNameAsync(model.Login);
 
             return entity;
         }
 
-        private async Task<HeroEntity> CreateEntity(HeroAddApiModel model, string password)
+        private async Task<HeroEntity> CreateEntityAsync(HeroAddApiModel model, string password)
         {
             // Set random weapon.
             model.Weapon = model.Weapon.RandInRange(1, 6);
@@ -99,7 +99,7 @@ namespace HeroesAndDragons.BL.Services
                 throw new System.Data.DuplicateNameException($"Hero {model.UserName} already exist");
             }
 
-            entity = await _repository.GetAsync(entity.Id);
+            entity = await _repository.Get(entity.Id);
 
             // Add claims to entity
             IEnumerable<Claim> claims = new List<Claim>()

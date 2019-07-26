@@ -29,13 +29,13 @@ namespace HeroesAndDragons.BL.Services
             return await base.AddAsync(model);
         }
 
-        public async Task<IEnumerable<DragonGetMinApiModel>> GetAlive(DragonFilterApiModel filterModel)
+        public async Task<IEnumerable<DragonGetMinApiModel>> GetAliveAsync(DragonFilterApiModel filterModel)
         {
             IEnumerable<DragonEntity> entities;
 
             if (filterModel?.OptionFilter == false)
             {
-                entities = await _repository.GetAliveAsync(filterModel);
+                entities = await _repository.GetAlive(filterModel);
             }
             else
             {
@@ -45,7 +45,7 @@ namespace HeroesAndDragons.BL.Services
             return _dataAdapter.Parse<DragonEntity, DragonGetMinApiModel>(entities);
         }
 
-        public async Task<IEnumerable<DragonGetMinApiModel>> GetForCurrentHero(DragonSortApiModel filterModel, string heroId)
+        public async Task<IEnumerable<DragonGetMinApiModel>> GetForCurrentHeroAsync(DragonSortApiModel filterModel, string heroId)
         {
             var entities = await _repository.GetForCurrentHero(filterModel, heroId);
 

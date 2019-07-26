@@ -17,7 +17,7 @@ namespace HeroesAndDragons.DL.Repositories
     {
         public HeroRepository(IGenericRepository<HeroEntity, string> repository) : base(repository) { }
 
-        public override Task<IEnumerable<HeroEntity>> GetAllAsync(BaseFilterApiModel filterModel)
+        public override Task<IEnumerable<HeroEntity>> GetAll(BaseFilterApiModel filterModel)
         {
             var res = _repository.Table.OrderBy(e => e.UserName).GetRange(filterModel);
             return Task.FromResult<IEnumerable<HeroEntity>>(res);

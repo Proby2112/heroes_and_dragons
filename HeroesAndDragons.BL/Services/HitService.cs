@@ -27,16 +27,16 @@ namespace HeroesAndDragons.BL.Services
         public override async Task<HitGetFullApiModel> AddAsync(HitAddApiModel model)
         {
             // Check dragon entity. If it doesn`t, then throw an exception
-            var dragon = (await _dragonRepository.WhereAsync(d => d.Id == model.DragonId && d.DragonState == DragonStateEnum.IsAlive)).FirstOrDefault();
+            var dragon = (await _dragonRepository.Where(d => d.Id == model.DragonId && d.DragonState == DragonStateEnum.IsAlive)).FirstOrDefault();
             if (dragon == null) throw new ArgumentNullException($"Dragon {model.DragonId} is dead!");
 
-            var hero = await _heroRepository.GetAsync(model.HeroId);
+            var hero = await _heroRepository.Get(model.HeroId);
 
             dragon.CurrentHp -= model.ImpactForce = hero.Weapon.ImpactForce();
 
             if (dragon.CurrentHp <= 0) dragon.DragonState = DragonStateEnum.IsDead;
 
-            await _dragonRepository.PutAsync(dragon.Id, dragon);
+            await _dragonRepository.Put(dragon.Id, dragon);
 
             return await base.AddAsync(model);
         }

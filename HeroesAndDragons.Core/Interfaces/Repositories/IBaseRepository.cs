@@ -13,18 +13,18 @@ namespace HeroesAndDragons.Core.Interfaces.Repositories
         where TEntity : class, IBaseEntity<TKey>
         where TKey : IEquatable<TKey>, IComparable<TKey>
     {
-        Task<TEntity> GetAsync(TKey id);
-        Task<IEnumerable<TEntity>> GetAllAsync(BaseFilterApiModel filterModel);
+        Task<TEntity> Get(TKey id);
+        Task<IEnumerable<TEntity>> GetAll(BaseFilterApiModel filterModel);
 
-        Task AddAsync(TEntity item);
+        Task Add(TEntity item);
 
-        Task RemoveAsync(TKey id);
-        Task RemoveAsync(TEntity entity);
+        Task Remove(TKey id);
+        Task Remove(TEntity entity);
 
-        Task PutAsync(TKey id, TEntity item);
+        Task Put(TKey id, TEntity item);
 
-        Task<bool> AnyAsync(Expression<Func<TEntity, bool>> search);
-        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> search);
-        Task<IQueryable<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> search);
+        Task<bool> Any(Expression<Func<TEntity, bool>> search);
+        Task<TEntity> FirstOrDefault(Expression<Func<TEntity, bool>> search);
+        Task<IQueryable<TEntity>> Where(Expression<Func<TEntity, bool>> search);
     }
 }

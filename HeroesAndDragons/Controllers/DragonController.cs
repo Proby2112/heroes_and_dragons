@@ -44,7 +44,7 @@ namespace HeroesAndDragons.Controllers
         {
             try
             {
-                var models = await _service.GetAlive(filterModel);
+                var models = await _service.GetAliveAsync(filterModel);
 
                 return Ok(models);
             }
@@ -78,7 +78,7 @@ namespace HeroesAndDragons.Controllers
             try
             {
                 var heroId = UserId;
-                var model = await _service.GetForCurrentHero(filterModel, heroId);
+                var model = await _service.GetForCurrentHeroAsync(filterModel, heroId);
 
                 return Ok(model);
             }

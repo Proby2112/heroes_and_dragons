@@ -22,6 +22,6 @@ namespace HeroesAndDragons.Core.Interfaces.Services
         /// <param name="entity"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        Task<TResult> Authenticate(TEntity entity, string password, bool remember);
+        Task<TResult> AuthenticateAsync(TEntity entity, string password, bool remember);
     }
 }
