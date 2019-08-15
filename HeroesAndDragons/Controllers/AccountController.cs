@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Threading.Tasks;
 using HeroesAndDragons.Controllers.Base;
 using HeroesAndDragons.Core;
 using HeroesAndDragons.Core.ApiModels;
 using HeroesAndDragons.Core.ApiModels.Base;
 using HeroesAndDragons.Core.Entities;
-using HeroesAndDragons.Core.Interfaces.Managers;
 using HeroesAndDragons.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HeroesAndDragons.Controllers
@@ -28,7 +24,7 @@ namespace HeroesAndDragons.Controllers
             _service = service;
         }
 
-        [HttpPost("sign_in")]
+        [HttpPost("signin")]
         public async Task<IActionResult> SignIn([FromBody] AuthenticationApiModel model)
         {
             try
@@ -54,7 +50,7 @@ namespace HeroesAndDragons.Controllers
             }
         }
 
-        [HttpPost("sign_up")]
+        [HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromBody] RegistrationApiModel model)
         {
             try

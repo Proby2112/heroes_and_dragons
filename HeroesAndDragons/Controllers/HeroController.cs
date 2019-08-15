@@ -27,7 +27,7 @@ namespace HeroesAndDragons.Controllers
         /// Take all Hero models
         /// </summary>
         /// <returns></returns>
-        [HttpGet("get_all")]
+        [HttpGet("getall")]
         public async Task<IActionResult> GetAllAsync([FromQuery] HeroFilterApiModel filterModel)
         {
             try
@@ -47,7 +47,7 @@ namespace HeroesAndDragons.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("byid")]
+        [HttpGet("byid/{id}")]
         public async Task<IActionResult> GetByIdAsync(string id)
         {
             return await base.GetById(id);
@@ -59,7 +59,7 @@ namespace HeroesAndDragons.Controllers
         /// <param name="id"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPut("update")]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateAsync(string id, [FromBody] HeroAddApiModel model)
         {
             return await base.Put(id, model);
@@ -81,7 +81,7 @@ namespace HeroesAndDragons.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteAsync(string id)
         {
             return await base.Delete(id);

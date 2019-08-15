@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using HeroesAndDragons.Core.Entities;
 using HeroesAndDragons.Core.Interfaces.Repositories;
@@ -15,17 +12,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using HeroesAndDragons.BL.Services;
 using HeroesAndDragons.DL.Repositories;
-using HeroesAndDragons.Core.Interfaces;
 using HeroesAndDragons.Managers;
 using HeroesAndDragons.Core.Interfaces.Managers;
 using HeroesAndDragons.BL.Managers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HeroesAndDragons
 {
@@ -115,8 +111,7 @@ namespace HeroesAndDragons
                 {
                     Version = "v1",
                     Title = "Heroes And Dragons",
-                    Description = "API Sample",
-                    TermsOfService = "None"
+                    Description = "API Sample"
                 });
                 c.AddSecurityDefinition("Bearer",
                 new ApiKeyScheme

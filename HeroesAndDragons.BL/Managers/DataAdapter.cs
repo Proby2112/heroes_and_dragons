@@ -32,17 +32,20 @@ namespace HeroesAndDragons.Managers
             CreateMap<DragonEntity, DragonGetFullApiModel>();
             CreateMap<DragonEntity, DragonGetMinApiModel>();
             CreateMap<DragonAddApiModel, DragonEntity>()
-                .ForPath(de => de.CurrentHp, mo => mo.MapFrom(dm => dm.Hp));
+                .ForPath(de => de.CurrentHp, mo => mo.MapFrom(dm => dm.Hp))
+                .ForPath(de => de.Created, mo => mo.Ignore());
 
             // Hero profile
             CreateMap<HeroEntity, HeroGetFullApiModel>();
             CreateMap<HeroEntity, HeroGetMinApiModel>();
-            CreateMap<HeroAddApiModel, HeroEntity>();
+            CreateMap<HeroAddApiModel, HeroEntity>()
+                .ForPath(he => he.Created, mo => mo.Ignore());
 
             // Hit profile
             CreateMap<HitEntity, HitGetFullApiModel>();
             CreateMap<HitEntity, HitGetMinApiModel>();
-            CreateMap<HitAddApiModel, HitEntity>();
+            CreateMap<HitAddApiModel, HitEntity>()
+                .ForPath(he => he.Created, mo => mo.Ignore());
 
         }
     }

@@ -23,7 +23,7 @@ namespace HeroesAndDragons.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("get_all")]
+        [Route("getall")]
         public async Task<IActionResult> GetAllAsync([FromQuery] BaseFilterApiModel rangeInfo)
         {
             return await base.GetAll(rangeInfo);

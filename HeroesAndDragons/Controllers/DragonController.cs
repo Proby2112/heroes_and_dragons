@@ -28,7 +28,7 @@ namespace HeroesAndDragons.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("get_all")]
+        [Route("getall")]
         public async Task<IActionResult> GetAllAsync([FromQuery] BaseFilterApiModel rangeInfo)
         {
             return await base.GetAll(rangeInfo);
@@ -39,7 +39,7 @@ namespace HeroesAndDragons.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("get_alive")]
+        [Route("getalive")]
         public async Task<IActionResult> GetAliveAsync([FromQuery] DragonFilterApiModel filterModel)
         {
             try
@@ -60,7 +60,7 @@ namespace HeroesAndDragons.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("byid")]
+        [Route("byid/{id}")]
         public async Task<IActionResult> GetByIdAsync(string id)
         {
             return await base.GetById(id);
@@ -72,7 +72,7 @@ namespace HeroesAndDragons.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("for_current_hero")]
+        [Route("forhero")]
         public async Task<IActionResult> GetForHeroAsync([FromQuery] DragonSortApiModel filterModel)
         {
             try
@@ -95,7 +95,7 @@ namespace HeroesAndDragons.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("update")]
+        [Route("update/{id}")]
         public async Task<IActionResult> UpdateAsync(string id, [FromBody] DragonAddApiModel model)
         {
             return await base.Put(id, model);

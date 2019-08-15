@@ -1,9 +1,7 @@
-﻿using HeroesAndDragons.Core.Entities.Base;
-using HeroesAndDragons.Core.Interfaces.DL;
+﻿using HeroesAndDragons.Core.Interfaces.DL;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HeroesAndDragons.Core.Entities
 {
